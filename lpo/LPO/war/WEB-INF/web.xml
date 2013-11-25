@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>MainMenu</servlet-name>
+		<servlet-class>lpo.MainMenuServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MainMenu</servlet-name>
+		<url-pattern>/Menu</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Authorization</servlet-name>
+		<servlet-class>lpo.AuthorizationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Authorization</servlet-name>
+		<url-pattern>/Authorization</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CreateEvent</servlet-name>
+		<servlet-class>lpo.CreateEventServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateEvent</servlet-name>
+		<url-pattern>/CreateEvent</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>ViewEvents</servlet-name>
+		<servlet-class>lpo.ViewEventsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewEvents</servlet-name>
+		<url-pattern>/ViewEvents</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>Menu</welcome-file>
+	</welcome-file-list>
+</web-app>
