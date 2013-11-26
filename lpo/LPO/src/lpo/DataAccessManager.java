@@ -112,7 +112,7 @@ public class DataAccessManager {
 			event.setKey(KeyFactory.keyToString(dbEvent.getKey()));
 			event.setName((String)dbEvent.getProperty("name"));
 			event.setDescription((String)dbEvent.getProperty("description"));
-			event.setMinParticipants((int)dbEvent.getProperty("minParticipants"));
+			event.setMinParticipants((int)((long)dbEvent.getProperty("minParticipants")));
 			event.setListInvitees((List<String>)dbEvent.getProperty("listInvitees"));
 			event.setCreateDate((Date)dbEvent.getProperty("createDate"));
 		}
@@ -144,5 +144,63 @@ public class DataAccessManager {
 		
 		return events;
 		
+	}
+	
+	public static lpo.EventSubscription GetEventSubscription(String userKey, String eventKey) 
+	{
+		lpo.EventSubscription eventSubscription = null;
+		
+		// try to retrieve data from database 
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		Query.Filter filter1 = new Query.FilterPredicate("userKey", FilterOperator.EQUAL, userKey);
+		Query.Filter filter2 = new Query.FilterPredicate("eventKey", FilterOperator.EQUAL, eventKey);
+		Query q = new Query("EventSubscription").setFilter(filter1).setFilter(filter2);
+	    		
+		Entity ent = datastore.prepare(q).asSingleEntity();
+		
+		if (ent != null)
+		{
+			eventSubscription = new lpo.EventSubscription();
+			eventSubscription.setKey(KeyFactory.keyToString(ent.getKey()));
+			eventSubscription.setKey(KeyFactory.keyToString(ent.getKey()));
+			eventSubscription.setUserKey((String)ent.getProperty("userKey"));
+			eventSubscription.setEventKey((String)ent.getProperty("eventKey"));
+			eventSubscription.setListDayHour((ArrayList<String>)ent.getProperty("listDayHour"));
+		}
+		
+		return eventSubscription;
+	}
+	
+	public static void InsertEventSubscription(lpo.EventSubscription eventSubscription) 
+	{
+		log.info("PERSIST EVENT SUBSCRIPTION TO DB");
+		
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		// check if we have a key (it already exists)
+		if (eventSubscription.getKey() != null)
+		{
+			try {
+				Entity ent = datastore.get(KeyFactory.stringToKey(eventSubscription.getKey()));
+				ent.setProperty("listDayHour", eventSubscription.getListDayHour());
+				datastore.put(ent);
+			} 
+			catch (EntityNotFoundException e)
+			{
+				log.info(e.toString());
+			}
+		}
+		else
+		{
+			Entity ent = new Entity("EventSubscription");
+			ent.setProperty("userKey", eventSubscription.getUserKey());
+			ent.setProperty("eventKey", eventSubscription.getEventKey());
+			ent.setProperty("listDayHour", eventSubscription.getListDayHour());
+			
+			datastore.put(ent);
+		}
+        
+        return;
 	}
 }

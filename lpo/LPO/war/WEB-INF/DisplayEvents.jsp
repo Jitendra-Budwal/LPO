@@ -25,6 +25,7 @@
 <%				
 			}
 %>			
+			<a href="JoinEvent?k=<%=event.getKey() %>">JOIN</a>
 			<br/>
 <% 
 		} 
