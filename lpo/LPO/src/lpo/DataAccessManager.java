@@ -152,10 +152,12 @@ public class DataAccessManager {
 		
 		// try to retrieve data from database 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		
+		System.out.println("Filter 1:"+userKey+"    Filter 2:"+eventKey);
 		Query.Filter filter1 = new Query.FilterPredicate("userKey", FilterOperator.EQUAL, userKey);
 		Query.Filter filter2 = new Query.FilterPredicate("eventKey", FilterOperator.EQUAL, eventKey);
-		Query q = new Query("EventSubscription").setFilter(filter1).setFilter(filter2);
+		Query.Filter filterc = new Query.CompositeFilter(Query.CompositeFilterOperator.AND,Arrays.<Query.Filter>asList(filter1,filter2) );
+		Query q = new Query("EventSubscription").setFilter(filterc);
+		
 	    		
 		Entity ent = datastore.prepare(q).asSingleEntity();
 		
@@ -202,4 +204,33 @@ public class DataAccessManager {
         
         return;
 	}
+	
+	public static HashSet<lpo.EventSubscription> GetEventAllSubs(String eventKey) 
+	{
+		lpo.EventSubscription eventSubscription = null;
+		
+		// try to retrieve data from database 
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		Query.Filter filter2 = new Query.FilterPredicate("eventKey", FilterOperator.EQUAL, eventKey);
+		Query q = new Query("EventSubscription").setFilter(filter2);
+	    		
+		Iterator<Entity> eEnts = datastore.prepare(q).asIterator();
+		
+		HashSet<EventSubscription> eSubs = new HashSet<EventSubscription>();
+		
+		while(eEnts.hasNext()){
+			Entity ent = eEnts.next();
+			eventSubscription = new lpo.EventSubscription();
+			eventSubscription.setKey(KeyFactory.keyToString(ent.getKey()));
+			eventSubscription.setUserKey((String)ent.getProperty("userKey"));
+			eventSubscription.setEventKey((String)ent.getProperty("eventKey"));
+			eventSubscription.stringToSubSlots((String)ent.getProperty("subSlots"));
+			eSubs.add(eventSubscription);
+		}
+		
+		return eSubs;
+	}
+	
+	
 }

@@ -62,6 +62,22 @@ public class Event {
 		this.key = key;
 	}
 
-
+	public int[][] getSubSum(){
+		HashSet<EventSubscription> eSubs = DataAccessManager.GetEventAllSubs(key);
+		int subSum[][]= new int[24][7];
+		if(eSubs.isEmpty()){return subSum;}
+		
+		Iterator<EventSubscription> iESubs = eSubs.iterator();
+		int[][] eSubSlots = new int[24][7];
+		while(iESubs.hasNext()){
+			eSubSlots = iESubs.next().getSubSlots();
+			for(int i=0;i<24;i++){
+				for(int j=0;j<7;j++){
+					subSum[i][j] += eSubSlots[i][j];
+				}
+			}
+		}
+		return subSum;
+	}
 
 }

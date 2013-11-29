@@ -25,6 +25,11 @@
 				- <%=person %><br/>				
 <%				
 			}
+			System.out.println("lpo.UserManager.GetUser():"+lpo.UserManager.GetUser().getNickName());
+			lpo.EventSubscription e = lpo.EventSubscriptionManager.GetEventSubscription(lpo.UserManager.GetUser().getEmailAddress(), event.getKey());
+			if(e==null){System.out.println("ESub is null");}
+			else{System.out.println("EventSubscription:"+e.getUserKey()+" : "+e.getEventKey());}
+			
 			if(lpo.EventSubscriptionManager.GetEventSubscription(lpo.UserManager.GetUser().getEmailAddress(), event.getKey())==null){
 %>			
 			<a href="ViewEvent?k=<%=event.getKey() %>">JOIN</a>
