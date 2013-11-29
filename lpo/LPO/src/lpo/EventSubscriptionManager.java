@@ -9,6 +9,26 @@ public class EventSubscriptionManager {
 		
 	private static final Logger log = Logger.getLogger(EventSubscriptionManager.class.getName());
 	
+	public static void InsertEventSubscription(String userKey, String eventKey, int[][] subSlots) {
+		
+		// see if we  have one first
+		lpo.EventSubscription eventSubscription = DataAccessManager.GetEventSubscription(userKey, eventKey);
+
+		// no - create new 
+		if (eventSubscription == null) {
+			eventSubscription = new lpo.EventSubscription();
+			eventSubscription.setUserKey(userKey);
+			eventSubscription.setEventKey(eventKey);
+			eventSubscription.setSubSlots(subSlots);
+		}
+		// yes - modify the list
+		else {
+			eventSubscription.setSubSlots(subSlots);
+		}
+		
+		DataAccessManager.InsertEventSubscription(eventSubscription);
+	}
+	
 	public static void InsertEventSubscription(String userKey, String eventKey, ArrayList<String> listDayHour) {
 		
 		// see if we  have one first

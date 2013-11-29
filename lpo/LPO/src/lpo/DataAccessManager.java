@@ -163,10 +163,9 @@ public class DataAccessManager {
 		{
 			eventSubscription = new lpo.EventSubscription();
 			eventSubscription.setKey(KeyFactory.keyToString(ent.getKey()));
-			eventSubscription.setKey(KeyFactory.keyToString(ent.getKey()));
 			eventSubscription.setUserKey((String)ent.getProperty("userKey"));
 			eventSubscription.setEventKey((String)ent.getProperty("eventKey"));
-			eventSubscription.setListDayHour((ArrayList<String>)ent.getProperty("listDayHour"));
+			eventSubscription.stringToSubSlots((String)ent.getProperty("subSlots"));
 		}
 		
 		return eventSubscription;
@@ -183,7 +182,7 @@ public class DataAccessManager {
 		{
 			try {
 				Entity ent = datastore.get(KeyFactory.stringToKey(eventSubscription.getKey()));
-				ent.setProperty("listDayHour", eventSubscription.getListDayHour());
+				ent.setProperty("subSlots", eventSubscription.subSlotsToString());
 				datastore.put(ent);
 			} 
 			catch (EntityNotFoundException e)
@@ -196,7 +195,7 @@ public class DataAccessManager {
 			Entity ent = new Entity("EventSubscription");
 			ent.setProperty("userKey", eventSubscription.getUserKey());
 			ent.setProperty("eventKey", eventSubscription.getEventKey());
-			ent.setProperty("listDayHour", eventSubscription.getListDayHour());
+			ent.setProperty("subSlots", eventSubscription.subSlotsToString());
 			
 			datastore.put(ent);
 		}

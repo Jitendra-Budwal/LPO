@@ -29,20 +29,20 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/CreateEvent</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>ViewEvents</servlet-name>
+		<servlet-name>ViewAllEvents</servlet-name>
 		<servlet-class>lpo.ViewEventsServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ViewEvents</servlet-name>
-		<url-pattern>/ViewEvents</url-pattern>
+		<servlet-name>ViewAllEvents</servlet-name>
+		<url-pattern>/ViewAllEvents</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>JoinEvent</servlet-name>
-		<servlet-class>lpo.JoinEventServlet</servlet-class>
+		<servlet-name>ViewEvent</servlet-name>
+		<servlet-class>lpo.ViewEventServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>JoinEvent</servlet-name>
-		<url-pattern>/JoinEvent</url-pattern>
+		<servlet-name>ViewEvent</servlet-name>
+		<url-pattern>/ViewEvent</url-pattern>
 	</servlet-mapping>	
 	<welcome-file-list>
 		<welcome-file>Menu</welcome-file>

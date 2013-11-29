@@ -8,6 +8,7 @@ public class EventSubscription {
 	private String userKey;
 	private String eventKey;
 	private ArrayList<String> listDayHour = new ArrayList<String>();
+	private int[][] subSlots = new int[24][7];
 	
 	public EventSubscription()
 	{}
@@ -43,6 +44,35 @@ public class EventSubscription {
 	public void setListDayHour(ArrayList<String> listDayHour) {
 		this.listDayHour = listDayHour;
 	}
+	
+	public void setSubSlots(int[][] newsub){
+		this.subSlots=newsub;
+	}
+	
+	public int[][] getSubSlots(){
+		return subSlots;
+	}
+	
+	public String subSlotsToString(){
+		String subsString="";
+		for(int i=0;i<24;i++){
+			for(int j=0;j<7;j++){
+				subsString=subsString+subSlots[i][j];
+			}
+		}
+		return subsString;
+	}
+	
+	public void stringToSubSlots(String subsString){
+		for(int i=0;i<24;i++){
+			for(int j=0;j<7;j++){
+				subSlots[i][j]=new Integer(subsString.substring(i*7+j, i*7+j+1));
+			}
+		}
+	}
+	
+	
+	
 
 
 }
