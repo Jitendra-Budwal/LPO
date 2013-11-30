@@ -23,7 +23,7 @@ public class AuthorizationServlet extends HttpServlet {
 		lpo.User user = UserManager.GetUser();
 		if (user == null) {
 			UserService userService = UserServiceFactory.getUserService();
-			resp.sendRedirect(userService.createLoginURL("http://localhost:8888/Menu"));
+			resp.sendRedirect(userService.createLoginURL("/Menu"));
 		}
 		// Actually Logged in, so let's redirect to Menu
 		else {

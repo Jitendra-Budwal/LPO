@@ -10,6 +10,7 @@ public class Event {
 	private int minParticipants;
 	private List<String> listInvitees = new ArrayList<String>();
 	private Date createDate = new Date(); 
+	private GregorianCalendar calcDate = new GregorianCalendar();
 	
 	public Event()
 	{}
@@ -77,7 +78,30 @@ public class Event {
 				}
 			}
 		}
+		this.calcDate = new GregorianCalendar(TimeZone.getTimeZone("CST"));
+		System.out.println(calcDate.toString());
 		return subSum;
 	}
+	
+	public int[][] getFmtSubSum(){
+		int subSum[][]=getSubSum();
+		int cDay=calcDate.get(Calendar.DAY_OF_WEEK);		//today is Monday ->1
+		System.out.println("Day of Week is "+cDay);
+		int cTime=calcDate.get(Calendar.HOUR_OF_DAY);		//time is 10:05am ->10
+		int fmtSubSum[][] = new int[24][7];
+		
+		for(int i=0;i<24;i++){
+			for(int j=0;j<7;j++){
+				fmtSubSum[i][j] = subSum[i][(j+cDay-1)%7];
+			}
+		}
+		
+		return fmtSubSum;
+	}
+	
+	public GregorianCalendar getCalcDate(){
+		return calcDate;
+	}
+	
 
 }

@@ -87,7 +87,10 @@ public class ViewEventServlet extends HttpServlet {
 		
 		//EventSubscriptionManager.InsertEventSubscription(user.getEmailAddress(), eventKey, listDayHour);
 		
-		return;
+		// build display page
+		System.out.println("about to redirect");
+				resp.sendRedirect("ViewEvent?k="+eventKey);
+		
 		
 	}
 }
