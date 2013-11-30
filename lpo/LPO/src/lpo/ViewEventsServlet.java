@@ -22,7 +22,7 @@ public class ViewEventsServlet extends HttpServlet {
 			resp.sendRedirect("WelcomePage.jsp");
 		}
 		
-		// get all current events
+		// get only the current user's events
 		List<lpo.Event> events = DataAccessManager.GetEventList();
 		
 		req.setAttribute("events", events);

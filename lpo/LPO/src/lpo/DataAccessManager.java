@@ -146,6 +146,35 @@ public class DataAccessManager {
 		
 	}
 	
+	
+	public static List<lpo.Event> GetEventList(String userKey)
+	{
+		log.info("########## GET LIST OF "+userKey+"'S EVENTS");
+		
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		Query.Filter filter2 = new Query.FilterPredicate("userKey", FilterOperator.EQUAL, userKey);
+		Query q = new Query("EventSubscription").setFilter(filter2);
+	    		
+		Iterator<Entity> eEnts = datastore.prepare(q).asIterator();
+		
+		ArrayList<String> eKeys = new ArrayList<String>();
+		
+		while(eEnts.hasNext()){
+			Entity ent = eEnts.next();
+			eKeys.add((String)ent.getProperty("eventKey"));
+		}
+			
+		List<lpo.Event> events = new ArrayList<Event>();
+
+		for (String eKey : eKeys) {
+			events.add(GetEvent(eKey));
+		}
+		
+		return events;		
+	}
+	
+	
 	public static lpo.EventSubscription GetEventSubscription(String userKey, String eventKey) 
 	{
 		lpo.EventSubscription eventSubscription = null;

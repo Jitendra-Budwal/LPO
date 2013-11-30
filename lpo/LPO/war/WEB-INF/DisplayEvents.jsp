@@ -14,17 +14,18 @@
 	if (events.size() > 0) {
 		
 		for (lpo.Event event : events) {
-%>
-			Event Name: <%=event.getName() %><br/>
-			Description: <%=event.getDescription() %><br/>
-			Minimum Participants: <%=event.getMinParticipants() %><br/>
-			Date Created: <%=event.getCreateDate() %><br/>
-<% 
+%><br/>
+			<b>Event Name:</b> <%=event.getName() %><br/>
+			<b>Description:</b> <%=event.getDescription() %><br/>
+			<b>Minimum Participants:</b> <%=event.getMinParticipants() %><br/>
+			<b>Date Created:</b> <%=event.getCreateDate() %><br/>
+			<b>Invited Members:</b><ul>
+<% 			
 			for (String person : event.getListInvitees()) {
 %>
-				- <%=person %><br/>				
+				<li><%=person %></li>				
 <%				
-			}
+			}%></ul><%
 			System.out.println("lpo.UserManager.GetUser():"+lpo.UserManager.GetUser().getNickName());
 			lpo.EventSubscription e = lpo.EventSubscriptionManager.GetEventSubscription(lpo.UserManager.GetUser().getEmailAddress(), event.getKey());
 			if(e==null){System.out.println("ESub is null");}
@@ -38,7 +39,7 @@
 			} else{
 %>			
 			<a href="ViewEvent?k=<%=event.getKey() %>">VIEW</a>
-			<br/>
+			<br/><br/><hr>
 <% 				
 			}
 		}
