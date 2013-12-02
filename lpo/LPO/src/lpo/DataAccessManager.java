@@ -70,7 +70,7 @@ public class DataAccessManager {
         return;
 	}
 
-	public static void InsertEvent(lpo.Event event)
+	public static String InsertEvent(lpo.Event event)
 	{
 		log.info("PERSIST EVENT TO DB");
 
@@ -83,9 +83,9 @@ public class DataAccessManager {
         newEvent.setProperty("createDate", event.getCreateDate());
         
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Key eventKey = datastore.put(newEvent);
+        datastore.put(newEvent);
+        return KeyFactory.keyToString(newEvent.getKey());
         
-        return;
 	}
 	
 	public static lpo.Event GetEvent(String key)

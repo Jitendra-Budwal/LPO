@@ -1,8 +1,10 @@
 package lpo;
 
 import java.io.IOException;
+
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
+
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -65,8 +67,13 @@ public class CreateEventServlet extends HttpServlet {
 			}
 			
 			// persist to database
-			DataAccessManager.InsertEvent(newEvent);
+			String eventKey = DataAccessManager.InsertEvent(newEvent);
 			
+			log.info("SUBSCRIBE CREATOR : " + user.getEmailAddress() + " to new event key" + newEvent.getKey());
+			
+			//subscribe  creator to this new event with no presumed availibility
+			int[][] subSlots = new int[24][7];
+			EventSubscriptionManager.InsertEventSubscription(user.getEmailAddress(), eventKey, subSlots);
 			resp.sendRedirect("/Menu");
 		}
 		else
