@@ -1,0 +1,149 @@
+/*welcome page---------------*/
+
+#welcome_logo {
+  font-family: 'Loved by the King', cursive;
+  font-size: 72px;
+  text-align: center;
+  padding-top: 150px;
+  padding-bottom: 100px;
+  color: #1589FF;
+}
+
+
+
+#welcome_body {
+  position: relative;
+  width: 800px;
+  height: 200px;
+  margin: auto;
+  font-family: 'Arial', sans-serif;
+  font-size: 17px;
+}
+
+.left{
+  color: #25383C;
+  width:330px;
+  height:20px;
+  position: absolute;
+  left: 4%;
+  top: 25%;
+}
+
+
+.divider {
+  position:absolute;
+  left:50%;
+  top:10%;
+  bottom:10%;
+  border-left:1px solid #CFE2E6;
+}
+
+.right {
+  width: 450px;
+  height: 200px;
+  float: right;
+  text-align: center;
+  padding-top: 80px;
+}
+
+/* TO DO: style login button */
+#submit {
+}
+
+
+/*navigation bar-----------------------*/
+#nav {
+background: #33A7FF;
+position: relative;
+top: 0%;
+left: 0%;
+width: 100%;
+}
+
+#nav ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+#nav li
+{
+float:left;
+}
+#nav a:link,
+#nav a:visited
+{
+display:block;
+width:120px;
+color:#FFFFFF;
+background-color:#33A7FF;
+text-align:center;
+padding:5px;
+text-decoration:none;
+text-transform:uppercase;
+font-family: 'Arial', sans-serif;
+font-size: 14px;
+font-weight: bold;
+}
+#nav a:hover,
+#nav a:active
+{
+background-color:#1589FF;
+}
+
+#nav .logout {
+position: absolute;
+right: 0%;
+top: 0%;
+}
+
+/*main menu--------------*/
+#main_menu {
+  height: 500px;
+  width: 982px;
+  margin: auto;
+  padding-top: 100px;
+  font-family: 'Arial', sans-serif;
+  font-size: 17px;
+
+  
+}
+
+#main_menu .img_box {
+  color: #1589FF;
+	text-decoration:none;
+  text-align: center;
+	position: absolute;
+	margin: 100px;
+	height: 150px;
+	width: 150px;
+	background:#DDF6FF;
+	padding: 20px;
+	border: 1px solid #1589FF;
+	border-radius: 15px;
+	-moz-border-radius:15px;
+}
+
+#main_menu .img_box:active {
+	outline:none;
+	text-decoration:none;
+	color: #1589FF;
+	-webkit-transition: border linear 0.0s, box-shadow linear 0.0s;
+	-webkit-transition-property: border, box-shadow;
+	-webkit-transition-duration: 0.0s, 0.0s;
+	-webkit-transition-timing-function: linear, linear;
+	-webkit-transition-delay: initial, initial;
+	-moz-transition: border linear 0.0s, box-shadow linear 0.0s;
+	transition: border linear 0.0s, box-shadow linear 0.0s;
+	-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(0, 185, 255, 0.6);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(0, 185, 255, 0.6);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(0, 185, 255, 0.6);
+    border-color: rgba(0, 185, 255, 0.8);
+}
+
+img,
+img a{
+	border: none;
+	outline: none;
+}
