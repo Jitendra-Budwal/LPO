@@ -18,7 +18,18 @@ public class DataAccessManager {
 		log.info("Get User");
 		
 		lpo.User user = new lpo.User();
-						
+		
+		// don't bother to save the user... as everything needed
+		// resides in the google user class, and it has to be
+		// present for the system to work.
+		
+		user.setEmailAddress(gUser.getEmail());
+		user.setNickName(gUser.getNickname());
+		
+		return user;
+		
+
+/*
 		// try to retrieve data from database 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
@@ -51,24 +62,24 @@ public class DataAccessManager {
 		}
 		
 		return user;
-		
+*/		
 	}
 	
-	public static void InsertUser (lpo.User user) {
-		
-		log.info("PERSIST USER TO DB");
-		
-        //Key lpoKey = KeyFactory.createKey("LPOSystem", "LPOSystem");
-        
-        Entity newUser = new Entity("User");
-        newUser.setProperty("nickName", user.getNickName());
-        newUser.setProperty("emailAddress", user.getEmailAddress());
-
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(newUser);
-
-        return;
-	}
+//	public static void InsertUser (lpo.User user) {
+//		
+//		log.info("PERSIST USER TO DB");
+//		
+//        //Key lpoKey = KeyFactory.createKey("LPOSystem", "LPOSystem");
+//        
+//        Entity newUser = new Entity("User");
+//        newUser.setProperty("nickName", user.getNickName());
+//        newUser.setProperty("emailAddress", user.getEmailAddress());
+//
+//        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+//        datastore.put(newUser);
+//
+//        return;
+//	}
 
 	public static String InsertEvent(lpo.Event event)
 	{
@@ -83,9 +94,9 @@ public class DataAccessManager {
         newEvent.setProperty("createDate", event.getCreateDate());
         
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(newEvent);
-        return KeyFactory.keyToString(newEvent.getKey());
+        Key eventKey = datastore.put(newEvent);
         
+        return KeyFactory.keyToString(eventKey);
 	}
 	
 	public static lpo.Event GetEvent(String key)

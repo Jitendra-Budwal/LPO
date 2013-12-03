@@ -37,6 +37,7 @@ public class CreateEventServlet extends HttpServlet {
 		if (invitationList != null && !invitationList.isEmpty()) {
 			emailList = invitationList.split(",");
 			listInvitees = new ArrayList<String>(Arrays.asList(emailList));
+			
 		}
 
 		if (eventName == null || eventName.isEmpty() || description == null || description.isEmpty()) {
@@ -62,12 +63,28 @@ public class CreateEventServlet extends HttpServlet {
 			newEvent.setDescription(description);
 			newEvent.setMinParticipants(minParticipants);
 			
+			
 			if (listInvitees.size() > 0) {
 				newEvent.setListInvitees(listInvitees);
+				// Check for dupes
+				ArrayList<String> recipients = new ArrayList<String>();
+				for (String s : listInvitees){
+					if (!recipients.contains(s)) {
+						recipients.add(s);
+					}
+				}
+				
+				// Send Email to invitees
+				EmailManager.SendEmail(user.getEmailAddress(), recipients, "Invitation to " + eventName,
+						user.getNickName() + " is using LPO to organize the " + eventName 
+						+ ". Please visit LPO website at http://lpo-app.appspot.com to get more details and participate.");
+				
 			}
 			
 			// persist to database
 			String eventKey = DataAccessManager.InsertEvent(newEvent);
+//			DataAccessManager.InsertEvent(newEvent);
+
 			
 			log.info("SUBSCRIBE CREATOR : " + user.getEmailAddress() + " to new event key" + newEvent.getKey());
 			

@@ -54,6 +54,37 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>ViewEvent</servlet-name>
 		<url-pattern>/ViewEvent</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>EmailTestServlet</servlet-name>
+		<servlet-class>lpo.EmailTestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmailTestServlet</servlet-name>
+		<url-pattern>/EmailTestServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CronEventListEmailServlet</servlet-name>
+		<servlet-class>lpo.CronEventListEmailServlet</servlet-class>
+	</servlet>
 	
+	<!-- CRON JOBS FOLLOW -->
+	
+	<servlet-mapping>
+		<servlet-name>CronEventListEmailServlet</servlet-name>
+		<url-pattern>/cron/CronEventListEmailServlet</url-pattern>
+	</servlet-mapping>
+	
+	<!-- The following prevents anyone except the administator OR cron
+		 scheduler from running servlets under the /cron/* path  -->
+	
+	<security-constraint>
+	    <web-resource-collection>
+	        <web-resource-name>cron</web-resource-name>
+	        <url-pattern>/cron/*</url-pattern>
+	    </web-resource-collection>
+	    <auth-constraint>
+	        <role-name>admin</role-name>
+	    </auth-constraint>
+	</security-constraint>
 </web-app>

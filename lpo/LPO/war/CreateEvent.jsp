@@ -18,6 +18,8 @@
 		Min Participants:<input type="text" name="minParticipants"/><br/>
 		Invitation List:<input type="text" name="invitationList"/><br/>
 		<button type="submit">Create Event</button>
+<!-- 		<button type="submit">Create Event & Send Email Invitation</button>  -->
+		
 	</form>
 </body>
 </html>
