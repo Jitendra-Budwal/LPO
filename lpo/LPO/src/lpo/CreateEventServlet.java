@@ -16,8 +16,22 @@ public class CreateEventServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		log.info("########## START CREATE EVENT ###########");
+		log.info("########## START CREATE EVENT GET ###########");
+
+		// Check for valid user session
+		lpo.User user = UserManager.GetUser();
+		
+		if (user == null)
+			resp.sendRedirect("WelcomePage.jsp");
+
+		req.getRequestDispatcher("/WEB-INF/CreateEvent.jsp").forward(req, resp);
+	}
 	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+		
+		log.info("########## START CREATE EVENT POST ###########");
+		
 		// Check for valid user session
 		lpo.User user = UserManager.GetUser();
 		
@@ -27,21 +41,22 @@ public class CreateEventServlet extends HttpServlet {
 		// check form variables to ensure that minimum required info was added.
 		boolean formIsComplete = true;
 		
-		String eventName = req.getParameter("eventName");
-		String description = req.getParameter("description");
-		String invitationList = req.getParameter("invitationList");
+		String eventName = req.getParameter("eventName").trim();
+		String description = req.getParameter("description").trim();
+		String invitationList = req.getParameter("invitationList").trim();
 		
 		String[] emailList;
 		List<String> listInvitees = new ArrayList<String>();
 		
 		if (invitationList != null && !invitationList.isEmpty()) {
-			emailList = invitationList.split(",");
-			listInvitees = new ArrayList<String>(Arrays.asList(emailList));
+			emailList = invitationList.toLowerCase().split(",");
 			
-		}
-
-		if (eventName == null || eventName.isEmpty() || description == null || description.isEmpty()) {
-			formIsComplete = false;
+			// don't insert dups
+			for (String s : emailList) {
+				if (!listInvitees.contains(s.trim())) {
+					listInvitees.add(s.trim());
+				}
+			}
 		}
 		
 		int minParticipants = 0;
@@ -55,6 +70,15 @@ public class CreateEventServlet extends HttpServlet {
 		
 		log.info("FORM VARS : " + eventName + " " + description + " " + minParticipants + " " + invitationList);
 		
+		if (eventName == null 
+				|| eventName.isEmpty() 
+				|| description == null 
+				|| description.isEmpty() 
+				|| minParticipants < 1) {
+			
+			formIsComplete = false;
+		}
+
 		if (formIsComplete) {
 			// create event and populate available attributes
 			Event newEvent = new Event();
@@ -63,19 +87,11 @@ public class CreateEventServlet extends HttpServlet {
 			newEvent.setDescription(description);
 			newEvent.setMinParticipants(minParticipants);
 			
-			
 			if (listInvitees.size() > 0) {
 				newEvent.setListInvitees(listInvitees);
-				// Check for dupes
-				ArrayList<String> recipients = new ArrayList<String>();
-				for (String s : listInvitees){
-					if (!recipients.contains(s)) {
-						recipients.add(s);
-					}
-				}
 				
 				// Send Email to invitees
-				EmailManager.SendEmail(user.getEmailAddress(), recipients, "Invitation to " + eventName,
+				EmailManager.SendEmail(user.getEmailAddress(), listInvitees, "Invitation to " + eventName,
 						user.getNickName() + " is using LPO to organize the " + eventName 
 						+ ". Please visit LPO website at http://lpo-app.appspot.com to get more details and participate.");
 				
@@ -83,8 +99,6 @@ public class CreateEventServlet extends HttpServlet {
 			
 			// persist to database
 			String eventKey = DataAccessManager.InsertEvent(newEvent);
-//			DataAccessManager.InsertEvent(newEvent);
-
 			
 			log.info("SUBSCRIBE CREATOR : " + user.getEmailAddress() + " to new event key" + newEvent.getKey());
 			
@@ -100,7 +114,5 @@ public class CreateEventServlet extends HttpServlet {
 		}
 
 		return;
-		
-		
 	}
 }

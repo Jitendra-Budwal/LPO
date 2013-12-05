@@ -10,8 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link href="../css/reset.css" rel="stylesheet" type='text/css'>
-<link href="../css/style.css" rel="stylesheet" type='text/css'>
+<link href="/css/reset.css" rel="stylesheet" type='text/css'>
+<link href="/css/style.css" rel="stylesheet" type='text/css'>
 </head>
 <body>
 
@@ -25,7 +25,6 @@
 
   <div class="logout">
     <a href="<%=userService.createLogoutURL("/Menu") %>">Logout</a>
-    <!--<a href="#">Logout</a> -->
   </div>
 </div>
 

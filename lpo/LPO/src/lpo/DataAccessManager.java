@@ -25,6 +25,7 @@ public class DataAccessManager {
 		
 		user.setEmailAddress(gUser.getEmail());
 		user.setNickName(gUser.getNickname());
+		user.setUserId(gUser.getUserId());
 		
 		return user;
 		

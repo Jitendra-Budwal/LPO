@@ -13,12 +13,14 @@
 </head>
 <body>
 	<form action="CreateEvent" method="get" >
-		Name:<input type="text" name="eventName"/><br/>
-		Description:<input type="text" name="description"/><br/>
-		Min Participants:<input type="text" name="minParticipants"/><br/>
-		Invitation List:<input type="text" name="invitationList"/><br/>
-		<button type="submit">Create Event</button>
-<!-- 		<button type="submit">Create Event & Send Email Invitation</button>  -->
+		Name:<input type="text" name="eventName" title="Name for your Event should be unique.\n
+			Used in teh subject line for email to invitees"/><br/>
+		Description:<input type="text" name="description" title="include items such as: Location,
+		 	expected duration, equipment needed, etc."/><br/>
+		Min Participants:<input type="text" name="minParticipants" title="Enter an integer value"/><br/>
+		Invitation List:<input type="text" name="invitationList" title="comma seperated list of email addresses.
+			Used to send email inviting the recepient to use this web site."/><br/>
+ 		<button type="submit">Create Event & Send Email Invitation</button> 
 		
 	</form>
 </body>

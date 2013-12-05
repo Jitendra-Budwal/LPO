@@ -32,6 +32,14 @@ public class ViewEventServlet extends HttpServlet {
 		
 		// pull the event object out
 		lpo.Event event = EventManager.GetEvent(eventKey);
+
+		Map<String, List<String>> map = EventManager.CheckEventFulfillment(event);
+		
+		for (Map.Entry<String, List<String>> entry : map.entrySet()) { 
+			log.info("DATE : " + entry.getKey());
+			for (String s : entry.getValue())
+				log.info("SUBSCRIBER : " + s);
+		}
 		
 		// pull any existing subscriptions
 		lpo.EventSubscription eventSubscription = EventSubscriptionManager.GetEventSubscription(user.getEmailAddress(), event.getKey());

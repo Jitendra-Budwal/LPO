@@ -26,10 +26,6 @@ public class CronEventListEmailServlet extends HttpServlet {
 			emailBody += event.getName() + "\n" + event.getDescription() + "\n\n";
 		}
 		
-//		log.info("########## CRON start of emailBody ###########");
-//		log.info(emailBody);
-//		log.info("########## CRON end of emailBody ###########");
-		
 		EmailManager.SendEmail("budwal.j@gmail.com", "budwal.j@gmail.com", emailSubject, emailBody);
 		
 		
