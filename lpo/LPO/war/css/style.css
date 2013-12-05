@@ -5,7 +5,7 @@
   font-size: 72px;
   text-align: center;
   padding-top: 150px;
-  padding-bottom: 100px;
+  padding-bottom: 80px;
   color: #1589FF;
 }
 
@@ -27,6 +27,9 @@
   position: absolute;
   left: 4%;
   top: 25%;
+  font-family: 'Arial', sans-serif;
+  font-size: 17px;
+  color: #25383C;
 }
 
 
@@ -39,16 +42,14 @@
 }
 
 .right {
-  width: 450px;
+  width: 440px;
   height: 200px;
   float: right;
   text-align: center;
-  padding-top: 80px;
+  padding-top: 75px;
 }
 
-/* TO DO: style login button */
-#submit {
-}
+
 
 
 /*navigation bar-----------------------*/
@@ -146,4 +147,64 @@ img,
 img a{
 	border: none;
 	outline: none;
+}
+
+/*create event--------------*/
+
+body, html {
+  height: 100%;
+  
+}
+
+.layoutBox {
+  position:relative;
+  width:600px;
+  height: 100%;
+  padding: 200px;
+  padding-top: 80px;
+  background: #D6EDFF;
+  margin: auto;
+  color: #25383C;
+  font-family: 'Arial', sans-serif;
+  font-size: 15px;
+  line-height: 25px;
+  overflow-y:hidden;
+  overflow-x:hidden;
+}
+
+.eventBox {
+  background: #F3FAFF;
+  padding: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.eventBox ul {
+  list-style-type: square;
+  margin-left: 30px;
+}
+
+.label {
+  display: inline-block;
+  width: 160px;
+  font-weight: bold;  
+}
+
+.title {
+  font-family: 'Arial', sans-serif;
+  font-size: 25px;
+  color: #25383C;
+
+  
+}
+
+.eventBox .button{
+  margin-top: 30px;
+  float: right;
+  display: block;
+}
+.layoutBox input {
+  width: 66%;
 }

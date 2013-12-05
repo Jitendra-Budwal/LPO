@@ -24,7 +24,7 @@ public class CreateEventServlet extends HttpServlet {
 		if (user == null)
 			resp.sendRedirect("WelcomePage.jsp");
 
-		req.getRequestDispatcher("/WEB-INF/CreateEvent.jsp").forward(req, resp);
+		req.getRequestDispatcher("/CreateEvent.jsp").forward(req, resp);
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)

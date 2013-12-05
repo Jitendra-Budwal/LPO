@@ -8,7 +8,9 @@
     <link href="css/reset.css" rel="stylesheet" type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet" type='text/css'>
+    <link href="css/zocial.css" rel="stylesheet" type='text/css'>
 </head>
+
 <body>
 	<div id="welcome_logo">Let's Play Out!</div>
   <div id="welcome_body">
@@ -25,7 +27,7 @@
     <div class="divider"></div>
     <div class="right">
       <form action="Authorization" method="get" >
-      <button id="submit" type="submit">Log in with Google</button>
+      <button type="submit" class="zocial googleplus">Sign in with Google</button>
       </form>
     </div> 
   </div>
