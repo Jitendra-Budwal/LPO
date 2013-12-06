@@ -28,7 +28,7 @@
 </div>
 
 <div class="layoutBox">
-<div class="title"> View events: </div>
+	<div class="title"> View events: </div>
 <%
 	List<lpo.Event> events = (ArrayList<lpo.Event>)request.getAttribute("events");
 	if (events.size() > 0) {
@@ -56,14 +56,16 @@
 			
 			if(lpo.EventSubscriptionManager.GetEventSubscription(lpo.UserManager.GetUser().getEmailAddress(), event.getKey())==null){
 %>			
-			<a class="button" href="ViewEvent?k=<%=event.getKey() %>">JOIN</a>
+			<a class="rbutton" href="ViewEvent?k=<%=event.getKey() %>">JOIN</a>
 <% 
 			} else{
 %>			
-			<a class="button" href="ViewEvent?k=<%=event.getKey() %>">VIEW</a>
+			<a class="rbutton" href="ViewEvent?k=<%=event.getKey() %>">VIEW</a>
 <%
 			}
 			%>
+			<a class="lbutton" href="EditEvent?k=<%=event.getKey() %>">EDIT</a>
+			<br/><hr>
 		</div>
 <%      
 		}

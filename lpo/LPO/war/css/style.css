@@ -205,6 +205,18 @@ body, html {
   float: right;
   display: block;
 }
+
+.eventBox .rbutton{
+  margin-top: 30px;
+  float: right;
+  display: block;
+}
+
+.eventBox .lbutton{
+  margin-top: 30px;
+  float: left;
+  display: block;
+}
 .layoutBox input {
   width: 66%;
 }

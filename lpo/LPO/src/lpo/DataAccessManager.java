@@ -25,7 +25,7 @@ public class DataAccessManager {
 		
 		user.setEmailAddress(gUser.getEmail());
 		user.setNickName(gUser.getNickname());
-		user.setUserId(gUser.getUserId());
+		//user.setUserId(gUser.getUserId());
 		
 		return user;
 		
@@ -100,6 +100,28 @@ public class DataAccessManager {
         return KeyFactory.keyToString(eventKey);
 	}
 	
+	public static void UpdateEvent(lpo.Event event)
+	{
+		log.info("UDATE EVENT TO HRD");
+
+		// try to retrieve data from database 
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		Query.Filter filter = new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, FilterOperator.EQUAL, KeyFactory.stringToKey(event.getKey()) );
+		Query q = new Query("Event").setFilter(filter);
+	    		
+		Entity dbEvent = datastore.prepare(q).asSingleEntity();
+
+		// store the event
+        dbEvent.setProperty("name", event.getName());
+        dbEvent.setProperty("description", event.getDescription());
+        dbEvent.setProperty("minParticipants", event.getMinParticipants());
+        
+        datastore.put(dbEvent);
+        
+        return;
+	}
+	
 	public static lpo.Event GetEvent(String key)
 	{
 		log.info("##### GET EVENT : " + key);
@@ -161,6 +183,9 @@ public class DataAccessManager {
 	
 	public static List<lpo.Event> GetEventList(String userKey)
 	{
+		// set the userKey to lowercase and trim any spaces
+		userKey = userKey.toLowerCase().trim();
+
 		log.info("########## GET LIST OF "+userKey+"'S EVENTS");
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -189,6 +214,9 @@ public class DataAccessManager {
 	
 	public static lpo.EventSubscription GetEventSubscription(String userKey, String eventKey) 
 	{
+		// set the userKey to lowercase and trim any spaces
+		userKey = userKey.toLowerCase().trim();
+
 		lpo.EventSubscription eventSubscription = null;
 		
 		// try to retrieve data from database 
@@ -272,6 +300,4 @@ public class DataAccessManager {
 		
 		return eSubs;
 	}
-	
-	
 }

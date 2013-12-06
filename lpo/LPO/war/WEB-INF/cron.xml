@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
   <cron>
-    <url>/cron/CronEventListEmailServlet</url>
-    <description>Send an email to the administrator listing all the events</description>
-    <schedule>every 4 hours</schedule>
+    <url>/cron/CronEventListEmailServlet?hrs=1</url>
+    <description>one hour event notification</description>
+    <schedule>every 1 hour synchronized</schedule>
     <timezone>America/New_York</timezone>
   </cron>
+  <cron>
+    <url>/cron/CronEventListEmailServlet?hrs=3</url>
+    <description>three hour event notification</description>
+    <schedule>every 1 hour synchronized</schedule>
+    <timezone>America/New_York</timezone>
+  </cron>
+  <cron>
+    <url>/cron/CronEventListEmailServlet?hrs=24</url>
+    <description>24 hour event notification</description>
+    <schedule>every 1 hour synchronized</schedule>
+    <timezone>America/New_York</timezone>
+  </cron>
+
 </cronentries>

@@ -72,4 +72,60 @@ public class EventManager {
 		return map;
 	}
 	
+	public static ArrayList<String> CheckEventFulfillment(lpo.Event event, int chkDay, int chkHour) {
+		
+		
+		ArrayList<String> listSubscribers = new ArrayList<String>();
+		
+		boolean filled = false;
+		int requiredPeople = event.getMinParticipants();
+		int fillDay = 0;
+		int fillTime = 0;
+		
+		HashSet<EventSubscription> eSubs = DataAccessManager.GetEventAllSubs(event.getKey());
+		int subSum[][]= new int[24][7];
+		
+		if(eSubs.isEmpty()) {
+			return listSubscribers;
+		}
+		
+		Iterator<EventSubscription> iESubs = eSubs.iterator();
+		int[][] eSubSlots = new int[24][7];
+		while(iESubs.hasNext()){
+			if (filled)
+				break;
+			eSubSlots = iESubs.next().getSubSlots();
+			for(int i=0;i<24;i++){
+				if (filled)
+					break;
+				for(int j=0;j<7;j++){
+					subSum[i][j] += eSubSlots[i][j];
+					if (subSum[i][j] == requiredPeople){
+						filled = true;
+						fillDay = j;
+						fillTime = i;
+						break;
+						
+					}
+				}
+			}
+		}
+		
+		log.info("FILL DAY : " + fillDay + " fillTime : " + fillTime);
+		
+		// if filled, return the scheduled earliest time and the subscribers list
+		if (filled && fillDay == chkDay && fillTime == chkHour) {
+								
+			iESubs = eSubs.iterator();
+			while(iESubs.hasNext()) {
+				lpo.EventSubscription e = iESubs.next();
+				eSubSlots = e.getSubSlots();
+				if (eSubSlots[fillTime][fillDay] == 1) {
+					listSubscribers.add(e.getUserKey());
+				}
+			}
+		}
+		return listSubscribers;
+	}
+	
 }

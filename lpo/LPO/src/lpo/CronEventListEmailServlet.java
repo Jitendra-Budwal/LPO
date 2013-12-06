@@ -3,6 +3,7 @@ package lpo;
 import java.io.IOException;
 
 import javax.servlet.http.*;
+
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -16,18 +17,50 @@ public class CronEventListEmailServlet extends HttpServlet {
 		
 		log.info("########## CRON EVENT LIST SERVLET ###########");
 		
-		// CRON JOB to email the entire event list to a user
-		List<lpo.Event> listEvents = DataAccessManager.GetEventList();
+		String adminEmailAccount = "budwal.j@gmail.com";
 		
-		String emailSubject = "All Events Email";
-		String emailBody = "The following are all events in the system : \n\n";
+		// pull hours from query parameter
+		int hour = Integer.parseInt(req.getParameter("hrs"));
 		
-		for (lpo.Event event : listEvents) {
-			emailBody += event.getName() + "\n" + event.getDescription() + "\n\n";
+		// figure out day of week and time slot we need to pull
+		
+		GregorianCalendar g = new GregorianCalendar();
+		g.add(Calendar.HOUR_OF_DAY,  hour);
+		
+		int dayOfWeek = g.get(Calendar.DAY_OF_WEEK) - 1;
+		int hourOfDay = g.get(Calendar.HOUR_OF_DAY);
+		
+		log.info("DAY : " + dayOfWeek + " HOUR : " + hourOfDay);
+		
+
+		// get list of all events
+		List<lpo.Event> listEvents =  DataAccessManager.GetEventList();
+		
+		String timeLabel = hour == 1 ? " hour." : " hours.";		
+		ArrayList<String> recipients;
+
+		// iterate over event list to check fulfillment
+
+		for (lpo.Event e : listEvents) {
+			
+			log.info("CHECK EVENT : " + e.getName());
+			recipients  = EventManager.CheckEventFulfillment(e, dayOfWeek, hourOfDay);
+			
+			// if fulfilled, we should get back a recipients list
+			if (recipients.size() > 0) {
+				
+				log.info("EVENT FULFILLED AND TIME TO SEND MESSAGE!");
+				
+				String subject = "Notification email for : " + e.getName();
+				String body = "The event " + e.getName() + " will start in " + hour + timeLabel;
+				EmailManager.SendEmail(adminEmailAccount, recipients, subject, body);
+			}
 		}
 		
-		EmailManager.SendEmail("budwal.j@gmail.com", "budwal.j@gmail.com", emailSubject, emailBody);
-		
+		// iterate over list and send an email to each subscriber letting them
+		// know that the event is staring in X hours
+
+		return;
 		
 	}
 }

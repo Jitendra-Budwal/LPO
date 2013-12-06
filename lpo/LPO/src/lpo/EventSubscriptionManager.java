@@ -11,6 +11,9 @@ public class EventSubscriptionManager {
 	
 	public static void InsertEventSubscription(String userKey, String eventKey, int[][] subSlots) {
 		
+		// set the userKey to lowercase and trim any spaces
+		userKey = userKey.toLowerCase().trim();
+		
 		// see if we  have one first
 		lpo.EventSubscription eventSubscription = DataAccessManager.GetEventSubscription(userKey, eventKey);
 
@@ -30,7 +33,9 @@ public class EventSubscriptionManager {
 	}
 	
 	public static void InsertEventSubscription(String userKey, String eventKey, ArrayList<String> listDayHour) {
-		
+		// set the userKey to lowercase and trim any spaces
+		userKey = userKey.toLowerCase().trim();
+
 		// see if we  have one first
 		lpo.EventSubscription eventSubscription = DataAccessManager.GetEventSubscription(userKey, eventKey);
 
@@ -51,6 +56,9 @@ public class EventSubscriptionManager {
 	
 	public static lpo.EventSubscription GetEventSubscription(String userKey, String eventKey)
 	{
+		// set the userKey to lowercase and trim any spaces
+		userKey = userKey.toLowerCase().trim();
+
 		return DataAccessManager.GetEventSubscription(userKey, eventKey);
 	}
 }
