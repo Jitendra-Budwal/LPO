@@ -19,16 +19,31 @@ public class ViewEventServlet extends HttpServlet {
 			throws IOException, ServletException {
 		
 		log.info("########## VIEW EVENT GET###########");
-		
+
+		String eventKey = req.getParameter("k");
 		
 		// Check for valid user session
 		lpo.User user = UserManager.GetUser();
 		
-		if (user == null)
-			resp.sendRedirect("WelcomePage.jsp");
-
-		// get event from datastore 
-		String eventKey = req.getParameter("k");
+		if (user == null) {
+			
+			log.info("USER IS NULL!");
+			// deal with ViewEvent Redirection 
+			// get event from datastore 
+			if (eventKey != null && !eventKey.isEmpty()) {
+				resp.sendRedirect("WelcomePage.jsp?k=" + eventKey);
+				return;
+			}
+			else
+			{
+				resp.sendRedirect("WelcomePage.jsp");
+				return;
+			}
+		}
+		else {
+			log.info("USER EMAIL ADDRESS : " + user.getEmailAddress());
+			
+		}
 		
 		// pull the event object out
 		lpo.Event event = EventManager.GetEvent(eventKey);

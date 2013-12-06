@@ -12,6 +12,11 @@
 </head>
 
 <body>
+<% 
+	String parm = "";
+	if (request.getParameter("k") != null && !request.getParameter("k").isEmpty())
+		parm = "?k="+request.getParameter("k");
+%>
 	<div id="welcome_logo">Let's Play Out!</div>
   <div id="welcome_body">
     <div class="left"> 
@@ -26,7 +31,7 @@
     </div>
     <div class="divider"></div>
     <div class="right">
-      <form action="Authorization" method="get" >
+      <form action="Authorization" method="post" >
       <button type="submit" class="zocial googleplus">Sign in with Google</button>
       </form>
     </div> 

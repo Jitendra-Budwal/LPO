@@ -90,15 +90,19 @@ public class CreateEventServlet extends HttpServlet {
 			if (listInvitees.size() > 0) {
 				newEvent.setListInvitees(listInvitees);
 				
-				// Send Email to invitees
-				EmailManager.SendEmail(user.getEmailAddress(), listInvitees, "Invitation to " + eventName,
-						user.getNickName() + " is using LPO to organize the " + eventName 
-						+ ". Please visit LPO website at http://lpo-app.appspot.com to get more details and participate.");
-				
 			}
 			
 			// persist to database
 			String eventKey = DataAccessManager.InsertEvent(newEvent);
+
+			String eventLink = "http://lpo-app.appspot.com/ViewEvent?k="+eventKey;
+			log.info("INVITATION LINK : " + eventLink);
+					
+			// Send Email to invitees
+			EmailManager.SendEmail(user.getEmailAddress(), listInvitees, "Invitation to " + eventName,
+					user.getNickName() + " is using LPO to organize the " + eventName 
+					+ ". Please visit LPO website at " + eventLink + " to get more details and participate.");
+
 			
 			log.info("SUBSCRIBE CREATOR : " + user.getEmailAddress() + " to new event key" + newEvent.getKey());
 			
