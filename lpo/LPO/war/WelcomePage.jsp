@@ -12,11 +12,15 @@
 </head>
 
 <body>
+
 <% 
 	String parm = "";
 	if (request.getParameter("k") != null && !request.getParameter("k").isEmpty())
 		parm = "?k="+request.getParameter("k");
 %>
+
+
+
 	<div id="welcome_logo">Let's Play Out!</div>
   <div id="welcome_body">
     <div class="left"> 
@@ -38,3 +42,4 @@
   </div>
 </body>
 </html>
+

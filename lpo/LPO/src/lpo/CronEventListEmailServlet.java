@@ -17,7 +17,7 @@ public class CronEventListEmailServlet extends HttpServlet {
 		
 		log.info("########## CRON EVENT LIST SERVLET ###########");
 		
-		String adminEmailAccount = "budwal.j@gmail.com";
+		String adminEmailAccount = "psaini14@gmail.com";
 		
 		// pull hours from query parameter
 		int hour = Integer.parseInt(req.getParameter("hrs"));
@@ -61,6 +61,20 @@ public class CronEventListEmailServlet extends HttpServlet {
 		// know that the event is staring in X hours
 
 		return;
+				
+		
+//		// CRON JOB to email the entire event list to a user
+//		List<lpo.Event> listEvents = DataAccessManager.GetEventList();
+//		
+//		String emailSubject = "All Events Email";
+//		String emailBody = "The following are all events in the system : \n\n";
+//		
+//		for (lpo.Event event : listEvents) {
+//			emailBody += emailBody + event.getName() + "\n" + event.getDescription() + "\n\n";
+//		}
+//		
+//		EmailManager.SendEmail("psaini14@gmail.com", "psaini14@gmail.com", emailSubject, emailBody);
+		
 		
 	}
 }

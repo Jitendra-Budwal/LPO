@@ -24,7 +24,7 @@ public class CreateEventServlet extends HttpServlet {
 		if (user == null)
 			resp.sendRedirect("WelcomePage.jsp");
 
-		req.getRequestDispatcher("/CreateEvent.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/CreateEvent.jsp").forward(req, resp);
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -46,7 +46,7 @@ public class CreateEventServlet extends HttpServlet {
 		String invitationList = req.getParameter("invitationList").trim();
 		
 		String[] emailList;
-		List<String> listInvitees = new ArrayList<String>();
+		ArrayList<String> listInvitees = new ArrayList<String>();
 		
 		if (invitationList != null && !invitationList.isEmpty()) {
 			emailList = invitationList.toLowerCase().split(",");
@@ -87,13 +87,25 @@ public class CreateEventServlet extends HttpServlet {
 			newEvent.setDescription(description);
 			newEvent.setMinParticipants(minParticipants);
 			
+			
 			if (listInvitees.size() > 0) {
 				newEvent.setListInvitees(listInvitees);
 				
+				// DONT DO THIS AGAIN AS ITS ALREADY DONE ABOVE..
+
+//				// Check for dupes
+//				ArrayList<String> recipients = new ArrayList<String>();
+//				for (String s : listInvitees){
+//					if (!recipients.contains(s)) {
+//						recipients.add(s);
+//					}
+//				}
+								
 			}
 			
 			// persist to database
 			String eventKey = DataAccessManager.InsertEvent(newEvent);
+//						DataAccessManager.InsertEvent(newEvent);
 
 			String eventLink = "http://lpo-app.appspot.com/ViewEvent?k="+eventKey;
 			log.info("INVITATION LINK : " + eventLink);

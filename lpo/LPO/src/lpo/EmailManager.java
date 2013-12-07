@@ -29,7 +29,7 @@ public class EmailManager {
 	}
 
 	// multiple email recipients
-	public static String SendEmail(String fromEmail, List<String> toEmail, String subject, String body) {
+	public static String SendEmail(String fromEmail, ArrayList<String> toEmail, String subject, String body) {
 		
 		String errorMessage = null;
 		

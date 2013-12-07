@@ -10,16 +10,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Edit Event</title>
+<title>Create Event</title>
 <link href="css/reset.css" rel="stylesheet" type='text/css'>
 <link href="css/style.css" rel="stylesheet" type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
-<%
-	lpo.Event event = (lpo.Event)request.getAttribute("event");
-%>
 
 <div id="nav">
   <ul>
@@ -36,19 +32,19 @@
 
 <div class="layoutBox">
 
-  <div class="title"> Edit Event </div>
+  <div class="title"> Create Event </div>
   <div class="eventBox">
-	<form action="EditEvent?k=<%=event.getKey() %>" method="post" >
-		<div class="label" >Event Name:</div>
-		<input type="text" name="eventName" value="<%=event.getName() %>" title="Used in the subject line for email to invitees"/><br/>
-		
+	<form action="CreateEvent" method="post" >
+		<div class="label">Event Name:</div>
+		<input type="text" name="eventName" title= "Used in the subject line for email to invitees"/><br/>
 		<div class="label">Event Description:</div>
-    	<input type="text" name="description" value="<%=event.getDescription() %>" title="include items such as: Location, expected duration, equipment needed, etc."/><br/>
-		
+    	<input type="text" name="description" title="include items such as: Location, expected duration, equipment needed, etc."/><br/>
 		<div class="label">Mininum Participants:</div>
-    	<input type="text" name="minParticipants" value="<%=event.getMinParticipants() %>" title="Enter an integer value"/><br/>
-		
-		<button class="button" type="submit">Update Event</button>
+    	<input type="text" name="minParticipants" title="Enter an integer value"/><br/>
+		<div class="label">Invitation List:</div>
+    	<input type="text" name="invitationList" title="comma seperated list of email addresses. Used to send email inviting the recepient to use this web site."/><br/>
+    <!--TO DO make button look better-->
+		<button class="button" type="submit">Create Event & Send Email Invitation</button>
 	</form>
   </div>
 </div>
