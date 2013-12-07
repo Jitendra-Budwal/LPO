@@ -12,6 +12,7 @@
 <title>All Events</title>
 <link href="../../css/reset.css" rel="stylesheet" type='text/css'>
 <link href="../../css/style.css" rel="stylesheet" type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div id="nav">
@@ -28,14 +29,15 @@
 </div>
 
 <div class="layoutBox">
-	<div class="title"> View events: </div>
+
+	<div class="title"> View Events </div>
 <%
 	List<lpo.Event> events = (ArrayList<lpo.Event>)request.getAttribute("events");
 	if (events.size() > 0) {
 		
 		for (lpo.Event event : events) {
 %>    <div class="eventBox">
-			<div class="label">Event Name: </div><%=event.getName() %><br/>
+			<div class="label">Event Name: </div> <%=event.getName() %><br/>
 			<div class="label">Event Description:</div> <%=event.getDescription() %><br/>
 			<div class="label">Minimum Participants:</div> <%=event.getMinParticipants() %><br/>
 			<div class="label">Date Created:</div> <%=event.getCreateDate() %><br/>
@@ -56,16 +58,16 @@
 			
 			if(lpo.EventSubscriptionManager.GetEventSubscription(lpo.UserManager.GetUser().getEmailAddress(), event.getKey())==null){
 %>			
-			<a class="rbutton" href="ViewEvent?k=<%=event.getKey() %>">JOIN</a>
+			<a class="button" href="ViewEvent?k=<%=event.getKey() %>">JOIN</a>
 <% 
 			} else{
 %>			
-			<a class="rbutton" href="ViewEvent?k=<%=event.getKey() %>">VIEW</a>
+			<a class="button" href="ViewEvent?k=<%=event.getKey() %>">VIEW</a>
 <%
 			}
 			%>
-			<a class="lbutton" href="EditEvent?k=<%=event.getKey() %>">EDIT</a>
-			<br/><hr>
+			<a class="button" href="EditEvent?k=<%=event.getKey() %>">EDIT</a>
+			<br/>
 		</div>
 <%      
 		}

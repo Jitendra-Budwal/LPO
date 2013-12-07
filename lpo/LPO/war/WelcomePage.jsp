@@ -31,7 +31,7 @@
     </div>
     <div class="divider"></div>
     <div class="right">
-      <form action="Authorization" method="post" >
+    <form action="Authorization<%=parm %>" method="post" > 
       <button type="submit" class="zocial googleplus">Sign in with Google</button>
       </form>
     </div> 

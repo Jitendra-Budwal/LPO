@@ -13,6 +13,7 @@
 <title>Edit Event</title>
 <link href="css/reset.css" rel="stylesheet" type='text/css'>
 <link href="css/style.css" rel="stylesheet" type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -34,15 +35,19 @@
 </div>
 
 <div class="layoutBox">
-  <div class="title"> Edit event: </div>
+
+  <div class="title"> Edit Event </div>
   <div class="eventBox">
 	<form action="EditEvent?k=<%=event.getKey() %>" method="post" >
-		<div class="label" value="<%=event.getName() %>">Event Name:</div>
-		<input type="text" name="eventName" title= "Used in the subject line for email to invitees"/><br/>
-		<div class="label" value="<%=event.getDescription() %>">Event Description:</div>
-    <input type="text" name="description" title="include items such as: Location, expected duration, equipment needed, etc."/><br/>
+		<div class="label">Event Name:</div>
+		<input type="text" name="eventName" value="<%=event.getName() %>" title= "Used in the subject line for email to invitees"/><br/>
+
+		<div class="label">Event Description:</div>
+    <input type="text" name="description" value="<%=event.getDescription() %>" title="include items such as: Location, expected duration, equipment needed, etc."/><br/>
+
 		<div class="label">Mininum Participants:</div>
     <input type="text" name="minParticipants" value="<%=event.getMinParticipants() %>" title="Enter an integer value"/><br/>
+
 		<button class="button" type="submit">Update Event</button>
 	</form>
   </div>

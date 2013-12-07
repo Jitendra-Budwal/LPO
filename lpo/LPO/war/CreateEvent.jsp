@@ -31,7 +31,8 @@
 </div>
 
 <div class="layoutBox">
-  <div class="title"> Create an event: </div>
+
+  <div class="title"> Create Event </div>
   <div class="eventBox">
 	<form action="CreateEvent" method="post" >
 		<div class="label">Event Name:</div>

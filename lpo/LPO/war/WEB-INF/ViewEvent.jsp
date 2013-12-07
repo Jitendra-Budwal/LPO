@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>	
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.*" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%     UserService userService = UserServiceFactory.getUserService();%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="../../css/reset.css" rel="stylesheet" type='text/css'>
+<link href="../../css/style.css" rel="stylesheet" type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
 <title>Join Event</title>
 </head>
 <body>
@@ -13,23 +19,39 @@
 	lpo.Event event = (lpo.Event)request.getAttribute("event");
 	int subSlots[][] = new int[24][7];
 %>
+<div id="nav">
+  <ul>
+    <li><a href="/Menu" >LPO</a></li> <!-- TO DO: Change into LPO logo -->
+    <li><a href="/CreateEvent">Create Event</a></li>
+    <li><a href="/SubscribedEvents">My Events</a></li>
+    <li><a href="/ViewAllEvents">All Events</a></li>
+  </ul>
 
+  <div class="logout">
+    <a href="<%=userService.createLogoutURL("/Menu") %>">Logout</a>
+  </div>
+</div>
+
+<div class="layoutBox">
+
+<div class="title"> Event <%=event.getName() %> </div>
+<div class="eventBox" >
 <form action="ViewEvent?k=<%=event.getKey() %>" method="post" >
-	Event Name: <%=event.getName() %><br/>
-	Description: <%=event.getDescription() %><br/>
-	Minimum Participants: <%=event.getMinParticipants() %><br/>
-	Date Created: <%=event.getCreateDate() %><br/>
-	<br>
-	Invited Members:<br/>
+
+	<div class="label">Event Name:</div> <%=event.getName() %><br/>
+	<div class="label">Event Description:</div> <%=event.getDescription() %><br/>
+	<div class="label">Minimum Participants:</div> <%=event.getMinParticipants() %><br/>
+	<div class="label">Date Created:</div> <%=event.getCreateDate() %><br/>
+	<div class="label">Invited Members:</div><ul>
 	
 <% 
 	for (String person : event.getListInvitees()) {
 %>
-		- <%=person %><br/>				
+		<li><%=person %></li>						
 <%				
 	}
 %>	
-	<br/>
+	</ul>
 <%	int[][] subSum = event.getSubSum(); 
 	//int curDay = event.getCurDay();
 	//int curTime = event.getCurTime();
@@ -40,12 +62,13 @@
 %>	
 	
 	
-	CURRENT STATUS FOR WEEK:<br>
-	<hr>
+	<div class="label">Current Week Status:</div>
+  <button title="Click to show/hide content" type="button" onclick="if(document.getElementById('mtxStatus') .style.display=='none') {document.getElementById('mtxStatus') .style.display=''}else{document.getElementById('mtxStatus') .style.display='none'}">Show/hide</button>
+
 	<div id="mtxStatus" style="display:none">
-	<table border="1">
+	<table class="calendar" border="1">
 	<% 
-	String[] daysofweek = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+	String[] daysofweek = {"Sun","Mon","Tues","Wed","Thurs","Fri","Sat"};
 	String timeslot;
 	String cellColor;
 	int eTime = 25;
@@ -63,14 +86,14 @@
 	}
 	%></tr><%
 	
-	%><tr><th>Time Slot</th><%for(int j=0;j<7;j++){
+	%><tr><th></th><%for(int j=0;j<7;j++){
 		%><th><%=daysofweek[(j+cDay)%7] %></th><% 
 	}
 	%></tr><%
 	
 	for(int i =0;i<24;i++){
 		timeslot = Integer.toString(i)+":00 - "+Integer.toString(i+1)+":00";
-		%><tr><td><%=timeslot%></td><%
+		%><tr><td class="timeslot"><%=timeslot%></td><%
 		for(int j=0;j<7;j++){ 
 			if(subSum[i][(j+cDay)%7]>=event.getMinParticipants()){
 				if((j+cDay)%7<eDay||(i<eTime&&(j+cDay)%7<=eDay)){
@@ -89,16 +112,15 @@
 	</table>
 	</div>
 	
-	<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('mtxStatus') .style.display=='none') {document.getElementById('mtxStatus') .style.display=''}else{document.getElementById('mtxStatus') .style.display='none'}">Show/hide</button>
-	<hr>
+
 	<br>
 	<br>
 	
 	<%if(eTime<25){
-		%>NEXT TIME THIS EVENT WILL OCCUR: <%=daysofweek[eDay]+" , "+Integer.toString(eTime)+":00 - "+Integer.toString(eTime+1)+":00" %><br><br><br><%
+		%><div class="label">Next Occurance:</div> <%=daysofweek[eDay]+" , "+Integer.toString(eTime)+":00 - "+Integer.toString(eTime+1)+":00" %><br><br><br><%
 		
 	}else{
-		%>There is currently not enough interest for this event to occur.</br></br></br><%
+		%><div class="label">Next Occurance:</div> There is currently not enough interest for this event to occur.</br></br></br><%
 	}
 	
 		%>
@@ -128,7 +150,7 @@
 		please make the required changes and press 'Submit'.
 		<br>
 		<br>
-		YOUR CURRENTLY AVAILABLE TIME SLOTS :
+		<div class="label">Your Currently Available Time Slots:</div>
 <% 
 				
 		subSlots = eventSubscription.getSubSlots();
@@ -136,16 +158,16 @@
 		
 	}
 %>
-	<br/><br/>
+	<br/>
 	
-	<table border="1">
+	<table class="calendar" border="1">
 	<% 
 	String val;
-	%><tr><th>Time Slot</th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr><%
+	%><tr><th></th><th>Sun</th><th>Mon</th><th>Tues</th><th>Wed</th><th>Thurs</th><th>Fri</th><th>Saturday</th></tr><%
 	System.out.println("About to populate table");
 	for(int i =0;i<24;i++){
 		timeslot = Integer.toString(i)+":00 - "+Integer.toString(i+1)+":00";
-		%><tr><td><%=timeslot%></td><%
+		%><tr><td class="timeslot"><%=timeslot%></td><%
 		for(int j=0;j<7;j++){ 
 			val = Integer.toString(i) + "," + Integer.toString(j);
 			//System.out.println("checking ("+i+","+j+"): "+subSlots[i][j]);
@@ -159,9 +181,10 @@
 	</table>
 	
 		
-	<br>
-	<button type="submit">SUBMIT</button>	
-	<br/>
+	<br><center>
+	<button type="submit">Submit Time Slot</button>	
+	</center><br/>
 </form>		
 </body>
 </html>
+

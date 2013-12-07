@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 <link href="/css/reset.css" rel="stylesheet" type='text/css'>
 <link href="/css/style.css" rel="stylesheet" type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Loved+by+the+King' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -28,16 +29,16 @@
   </div>
 </div>
 
-
+<div id="welcome_logo">Let's Play Out!</div>
 <div id="main_menu">
 	<a class="img_box" style="margin-left: 120px" href="/CreateEvent">
-	Create Event (icon)
+	<img src="/img/cake.png">Create Event
 	</a>
 	<a class="img_box" style="margin-left: 395px" href="/SubscribedEvents">
-	My Events (icon)
+	<img src="/img/my.png">View My Events
 	</a>
 	<a class="img_box" style="margin-left: 670px" href="/ViewAllEvents">
-	All Events (icon)
+	<img src="/img/all.png">View All Events
 	</a>
 </div>
 
